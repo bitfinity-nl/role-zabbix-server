@@ -1,0 +1,24 @@
+---
+# Title: Zabbix Server
+#
+# Author: Bitfinity / L. Rutten
+# Owner: Bitfinity / L. Rutten
+#
+# File: defaults/main.yml
+#
+# Description:
+#   This handlers file contains tasks
+#   when a task changes.
+#
+- name: "restart_apache2"
+  ansible.builtin.systemd_service:
+    name: apache2
+    state: restarted
+    enabled: yes
+    masked: no
+
+- name: "reload_apache2"
+  ansible.builtin.systemd_service:
+    name: apache2
+    state: reloaded
+
