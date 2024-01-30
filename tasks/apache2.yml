@@ -1,0 +1,47 @@
+---
+# Title: Zabbix Server
+#
+# Author: Bitfinity / L. Rutten
+# Owner: Bitfinity / L. Rutten
+#
+# File: tasks/apache2.yml
+#
+# Description:
+#   This task file contains tasks
+#   to configure Apache2 for Zabbix.
+#
+- name: "Install APT packages for Apache2"
+  ansible.builtin.apt:
+    pkg:
+    - apache2
+
+- name: "Enable the Apache2 modules"
+  community.general.apache2_module:
+    state: present
+    name: "{{ item }}"
+  loop:
+    - rewrite
+    - ssl
+  loop_control:
+    loop_var: apache_module
+  notify: restart_apache2
+
+- name: "Transfer templates templates/apache2/apache2-semaphore.conf.j2"
+  ansible.builtin.template:
+    src: "templates/zabbix.conf.j2"
+    dest: "/etc/apache2/sites-available/zabbix.conf.j2"
+  notify: reload_apache2
+
+- name: "Disable default Apache2 config files"
+  ansible.builtin.command: "a2dissite {{ apache_config }}"
+  loop:
+    - 000-default.conf
+    - default-ssl.conf
+  loop_control:
+    loop_var: apache_config
+  notify:
+    - restart_apache2
+    
+- name: "Enable Apache2 *.conf"
+  ansible.builtin.command: "a2ensite {{ item.name }}.conf"
+  notify: reload_apache2
