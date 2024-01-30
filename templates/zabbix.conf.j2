@@ -1,32 +1,44 @@
 <IfModule mod_ssl.c>
-        <VirtualHost _default_:443>
-                ServerAdmin ict@vissersenergygroup.nl
-                ServerName zabbix.vissersenergygroup.nl
-                #ServerAlias bit-zbx-01.bitfinity.nl
 
-                DocumentRoot /usr/share/zabbix
+<VirtualHost *:80>
 
-                ErrorLog ${APACHE_LOG_DIR}/error.log
-                CustomLog ${APACHE_LOG_DIR}/access.log combined
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
 
-                SSLEngine on
-                SSLCertificateFile /opt/ansible/system/letsencrypt/live/live/vissersenergygroup.nl/cert.pem
-                SSLCertificateKeyFile /opt/ansible/system/letsencrypt/live/live/vissersenergygroup.nl/privkey.pem
-                SSLCertificateChainFile /opt/ansible/system/letsencrypt/live/live/vissersenergygroup.nl/chain.pem
+</VirtualHost>
 
-                <FilesMatch "\.(cgi|shtml|phtml|php)$">
-                                SSLOptions +StdEnvVars
-                </FilesMatch>
-                <Directory /usr/lib/cgi-bin>
-                                SSLOptions +StdEnvVars
-                </Directory>
+<VirtualHost _default_:443>
 
-                <FilesMatch "\.(cgi|shtml|phtml|php)$">
-                                SSLOptions +StdEnvVars
-                </FilesMatch>
-                <Directory /usr/lib/cgi-bin>
-                                SSLOptions +StdEnvVars
-                </Directory>
+  ServerAdmin ict@vissersenergygroup.nl
+  ServerName {{ zbx_apache2_servername }}
 
-        </VirtualHost>
+  DocumentRoot /usr/share/zabbix
+
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+  CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+  SSLEngine on
+  SSLCertificateFile {{ zbx_apache2_sslcertificatefile }}
+  SSLCertificateKeyFile {{ zbx_apache2_sslcertificatekeyfile }}
+  SSLCertificateChainFile {{ zbx_apache2_sslcertificatechainfile }}
+
+  <FilesMatch "\.(cgi|shtml|phtml|php)$">
+     SSLOptions +StdEnvVars
+  </FilesMatch>
+
+  <Directory /usr/lib/cgi-bin>
+     SSLOptions +StdEnvVars
+  </Directory>
+
+  <FilesMatch "\.(cgi|shtml|phtml|php)$">
+     SSLOptions +StdEnvVars
+  </FilesMatch>
+
+  <Directory /usr/lib/cgi-bin>
+     SSLOptions +StdEnvVars
+  </Directory>
+
+</VirtualHost>
+
 </IfModule>
