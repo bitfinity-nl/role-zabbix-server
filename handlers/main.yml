@@ -11,14 +11,14 @@
 #   when a task changes.
 #
 - name: "restart_apache2"
-  ansible.builtin.systemd_service:
+  ansible.builtin.systemd:
     name: apache2
     state: restarted
     enabled: yes
     masked: no
 
 - name: "reload_apache2"
-  ansible.builtin.systemd_service:
+  ansible.builtin.systemd:
     name: apache2
     state: reloaded
 
