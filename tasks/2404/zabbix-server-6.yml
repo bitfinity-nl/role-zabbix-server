@@ -1,0 +1,103 @@
+---
+# Title: role-zabbix-server
+#
+# Author: Bitfinity / L. Rutten
+# Owner: Bitfinity / L. Rutten
+#
+# File: tasks/server/2404/zabbix-server-7.yml
+#
+# Description:
+#   Playbook for deploying Zabbix 7.0 
+#
+- name: "Install Zabbix repository"
+  ansible.builtin.apt:
+    deb: "{{ zbx_repository }}"
+    state: present
+
+- name: "Install Zabbix server, frontend, agent"
+  ansible.builtin.apt:
+    pkg:
+    #- php-bcmath
+    #- php-mbstring
+    #- php-xmlwriter
+    #- php-xmlreader
+    - snmp
+    - snmp-mibs-downloader
+    - zabbix-server-mysql
+    - zabbix-frontend-php
+    - zabbix-apache-conf
+    - zabbix-sql-scripts
+    - zabbix-agent
+    state: present
+    update_cache: yes
+
+- name: "Create initial database"
+  community.mysql.mysql_db:
+    name: "{{ zbx_mariadb_dbname }}"
+    encoding: utf8
+    collation: utf8_bin
+    state: present
+    login_user: "{{ zbx_mariadb_root }}"
+    login_password: "{{ zbx_mariadb_root_pwd }}"
+  notify:
+    - import zabbix-dbschema
+    - enable_restart_zabbix-server
+    - reboot_server
+
+- name: "Create initial database user"
+  community.mysql.mysql_user:
+    name: "{{ zbx_mariadb_zbx_user }}"
+    password: "{{ zbx_mariadb_zbx_pass }}"
+    priv: "{{ zbx_mariadb_dbname }}.*:ALL,GRANT"
+    state: present
+    login_user: "{{ zbx_mariadb_root }}"
+    login_password: "{{ zbx_mariadb_root_pwd }}"
+  no_log: True
+
+- name: "Create directory structure"
+  ansible.builtin.file:
+    path: /etc/zabbix/web/
+    owner: www-data
+    group: root
+    mode: 0755
+    state: directory
+
+- name: "Transfer templates to {{ ansible_host }}"
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+    backup: yes
+  loop:
+    - { src: 'server/zabbix.conf.php.j2', dest: '/etc/zabbix/web/zabbix.conf.php', owner: 'www-data', group: 'www-data', mode: '0644' }
+    - { src: 'server/apache.conf.j2', dest: '/etc/zabbix/apache.conf', owner: 'root', group: 'root', mode: '0644' }
+    - { src: 'server/zabbix_server.conf.j2', dest: '/etc/zabbix/zabbix_server.conf', owner: 'root', group: 'root', mode: '0644' }
+    - { src: 'agent/zabbix_agentd.conf.j2', dest: '/etc/zabbix/zabbix_agentd.conf', owner: 'root', group: 'root', mode: '0644' }
+
+- name: "Configure Zabbix Agent with 127.0.0.1 to monitor itself"
+  ansible.builtin.replace:
+    path: /etc/zabbix/zabbix_agentd.conf
+    regexp: "{{ item.find }}"
+    replace: "{{ item.repl }}"
+  loop:
+    - { find: 'Server={{ zbx_server }}', repl: 'Server=127.0.0.1,{{ zbx_server }}' }
+    - { find: 'ServerActive={{ zbx_active_server }}', repl: 'ServerActive=127.0.0.1,{{ zbx_active_server }}' }
+  notify:
+    - restart_zabbix_agent
+  no_log: True
+  
+- name: "Configure UFW firewall"
+  community.general.ufw:
+    rule: allow
+    port: "{{ item.port }}"
+    proto: "{{ item.proto }}"
+  with_items:
+    - { port: '10050', proto: 'tcp', desc: 'Allow traffic from Zabbix server to Zabbix Agent (Passive) on port 10050/tcp' }
+    - { port: '10051', proto: 'tcp', desc: 'Allow traffic from Zabbix agent to Zabbix server (Active) on port 10051/tcp' }
+    - { port: '80', proto: 'tcp', desc: 'Allow traffic from Zabbix frontend on port 80/tcp' }
+    - { port: '443', proto: 'tcp', desc: 'Allow traffic from Zabbix frontend on port 443/tcp' }
+
+- name: "Install apache2"
+  import_tasks: server/apache2.yml
