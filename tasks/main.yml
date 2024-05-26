@@ -1,4 +1,10 @@
 ---
 
+
+- name: "test"
+  apt:
+    pkg:
+    - plocate
+
 - name: "Install Zabbix server"
   include_tasks: tasks/2404/zabbix-server-6.yml
