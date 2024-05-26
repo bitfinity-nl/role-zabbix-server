@@ -1,3 +1,4 @@
---
+---
+
 - name: "Install apache2"
   include_tasks: 2404/zabbix-server-6.yml
