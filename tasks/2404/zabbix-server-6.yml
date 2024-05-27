@@ -4,7 +4,7 @@
 # Author: Bitfinity / L. Rutten
 # Owner: Bitfinity / L. Rutten
 #
-# File: tasks/server/2404/zabbix-server-6.yml
+# File: tasks/2404/zabbix-server-6.yml
 #
 # Description:
 #   Playbook for deploying Zabbix 6.0 
