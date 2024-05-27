@@ -1,10 +1,13 @@
 ---
-
-
-- name: "test"
-  apt:
-    pkg:
-    - plocate
-
-- name: "Install Zabbix server"
+# Title: role-zabbix-server
+#
+# Author: Bitfinity / L. Rutten
+# Owner: Bitfinity / L. Rutten
+#
+# File: tasks/main.yml
+#
+# Description:
+#   Playbook for deploying Zabbix server
+#
+- name: "Install Zabbix server version 6 on Ubuntu 24.04LTS (Noble Numbat)"
   include_tasks: tasks/2404/zabbix-server-6.yml
