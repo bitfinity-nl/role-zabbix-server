@@ -34,8 +34,8 @@
 - name: "Create initial database"
   community.mysql.mysql_db:
     name: "{{ zbx_mariadb_dbname }}"
-    encoding: utf8
-    collation: utf8_bin
+    encoding: utf8mb4
+    collation: utf8mb4_bin
     state: present
     login_user: "{{ zbx_mariadb_root }}"
     login_password: "{{ zbx_mariadb_root_pwd }}"
