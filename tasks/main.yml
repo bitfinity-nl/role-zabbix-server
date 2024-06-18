@@ -11,3 +11,6 @@
 #
 - name: "Install Zabbix server version 6 on Ubuntu 24.04LTS (Noble Numbat)"
   include_tasks: tasks/2404/zabbix-server-6.yml
+
+- name: "Install apache2"
+  include_tasks: tasks/2404/apache2.yml
