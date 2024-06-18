@@ -100,4 +100,4 @@
     - { port: '443', proto: 'tcp', desc: 'Allow traffic from Zabbix frontend on port 443/tcp' }
 
 - name: "Install apache2"
-  import_tasks: server/apache2.yml
+  import_tasks: apache2.yml
