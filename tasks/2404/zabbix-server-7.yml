@@ -7,11 +7,11 @@
 # File: tasks/2404/zabbix-server-6.yml
 #
 # Description:
-#   Playbook for deploying Zabbix 6.0 
+#   Playbook for deploying Zabbix 7.0 
 #
 - name: "Install Zabbix repository"
   ansible.builtin.apt:
-    deb: "https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_7.0-1+ubuntu24.04_all.deb"
+    deb: "{{ zbx_version_url }}"
     state: present
 
 - name: "Install Zabbix server, frontend, agent"
