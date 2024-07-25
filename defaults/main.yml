@@ -7,16 +7,19 @@
 # File: defaults/main.yml
 #
 # Description:
-#   This defaults file contains default
-#   settings that can be overriden.
+#   This defaults file contains default settings
+#   that can be overriden in your playbook.
 #
 
 # -- Default Zabbix configuration settings --
-#
-# Note:
-#   You can override these settings in your playbook.
-#
 zbx_version_url                     : 'https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_7.0-1+ubuntu24.04_all.deb'
+
+# -- Default MariaDB configuration settings -- 
+zbx_mariadb_zbx_user                : 'zabbix'
+zbx_mariadb_zbx_pass                : 'your_password'
+zbx_mariadb_dbname                  : 'zabbix'
+zbx_mariadb_root                    : 'root'
+zbx_mariadb_root_pwd                : 'your_root_password'
 
 # -- Default Apache2 configuration settings -- 
 zbx_apache2_serveradmin             : 'zabbix@example.com'
