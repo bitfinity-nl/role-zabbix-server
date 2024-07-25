@@ -10,7 +10,12 @@
 #   This defaults file contains default
 #   settings that can be overriden.
 #
-# -- Default Zabbix configuration settings -- 
+
+# -- Default Zabbix configuration settings --
+#
+# Note:
+#   You can override these settings in your playbook.
+#
 zbx__version_url                    : 'https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_7.0-1+ubuntu24.04_all.deb'
 
 # -- Default Apache2 configuration settings -- 
