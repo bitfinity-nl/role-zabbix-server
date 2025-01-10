@@ -9,8 +9,13 @@
 # Description:
 #   Playbook for deploying Zabbix server
 #
-- name: "Install Zabbix server version 6 on Ubuntu 24.04LTS (Noble Numbat)"
-  include_tasks: tasks/2404/zabbix-server-6.yml
+#- name: "Install Zabbix server version 6 on Ubuntu 24.04LTS (Noble Numbat)"
+#  include_tasks: tasks/2404/zabbix-server-6.yml
 
 #- name: "Install apache2"
 #  include_tasks: tasks/2404/apache2.yml
+
+- name: "Install Zabbix server when operating system is Ubuntu on host '{{ ansible_hostname }}'"
+  include_tasks: tasks/zabbix-server-version.yml
+  with_items: "{{ zabbix_repository }}"
+  when: ansible_distribution == "Ubuntu"
