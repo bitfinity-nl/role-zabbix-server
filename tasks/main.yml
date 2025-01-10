@@ -14,7 +14,12 @@
 
 #- name: "Install apache2"
 #  include_tasks: tasks/2404/apache2.yml
-
+- name: "Install MariaDB docker"
+  ansible.builtin.include_role:
+    name: role-mariadb-docker
+  with_items: "{{ zabbix_repository }}"
+  when: ansible_distribution == "Ubuntu"    
+    
 - name: "Install Zabbix server when operating system is Ubuntu on host '{{ ansible_hostname }}'"
   include_tasks: tasks/zabbix-server-version.yml
   with_items: "{{ zabbix_repository }}"
