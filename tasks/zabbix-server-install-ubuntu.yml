@@ -1,0 +1,93 @@
+---
+# Title: Zabbix proxy install Ubuntu
+#
+# Author: bitfinity-nl
+# Owner: bitfinity-nl
+#
+# File: tasks/ubuntu/zabbix-server-install-ubuntu.yml
+#
+# Description:
+#   Taskfile for deploying Zabbix proxy on Ubuntu.
+#
+- name: "Download & Install Zabbix {{ item.version }} deb package from '{{ item.ubuntu_source }}' on host '{{ ansible_hostname }}'"
+  ansible.builtin.apt:
+    deb: "{{ item.ubuntu_source }}"
+    state: present
+
+- name: "Update & Upgrade APT repositories on host '{{ ansible_hostname }}'"
+  ansible.builtin.apt:
+    upgrade: dist
+    
+- name: "Install Zabbix components {{ item.version }} via APT on host '{{ ansible_hostname }}'"
+  ansible.builtin.apt:
+    name: "{{ packages.name }}"
+    state: present
+    update_cache: yes
+  loop:
+    - { name: 'zabbix-proxy-mysql', desc: 'Zabbix Proxy' }
+    - { name: 'zabbix-sql-scripts', desc: 'Zabbix SQL-scripts' }
+    - { name: 'snmp', desc: 'SNMP' }
+    - { name: 'snmp-mibs-downloader', desc: 'SNMP mibs downloadder' }
+    - { name: 'zabbix-server-mysql', desc: 'Zabbix server MySQL version' }
+    - { name: 'zabbix-frontend-php', desc: 'Zabbix frontend' }
+    - { name: 'zabbix-apache-conf', desc: 'Zabbix Apache configuration }
+    - { name: 'zabbix-sql-scripts', desc: 'Zabbix SQL scripts' }
+  loop_control:
+    loop_var: packages
+    
+- name: "Create initial database on host '{{ ansible_hostname }}' in docker container 'mariadb' on host '{{ ansible_hostname }}'"
+  community.mysql.mysql_db:
+    name: "{{ zabbix_server_dbname }}"
+    encoding: utf8mb4
+    collation: utf8mb4_bin
+    state: present
+    login_user: "{{ zabbix_server_administrative_user }}"
+    login_password: "{{ zabbix_server_administrative_pass }}"
+  no_log: false
+
+- name: "Create initial database user on host '{{ ansible_hostname }}' in docker container 'mariadb' on host '{{ ansible_hostname }}'"
+  community.mysql.mysql_user:
+    name: "{{ zabbix_server_dbuser }}"
+    password: "{{ zabbix_server_dbpass }}"
+    priv: "{{ zabbix_server_dbname }}.*:ALL,GRANT"
+    state: present
+    login_user: "{{ zabbix_server_administrative_user }}"
+    login_password: "{{ zabbix_server_administrative_pass }}"
+  no_log: True
+    
+- name: "Copy MariaDB / MySQL database schema to the docker container"
+  community.docker.docker_container_copy_into:
+    container: mariadb
+    path: /usr/share/zabbix-sql-scripts/mysql/proxy.sql
+    container_path: /zabbix_proxy.sql
+  notify:
+    - mariadb_disable_global_log_bin_trust_function_creators
+    - mariadb_import_database_schema
+    - mariadb_enable_global_log_bin_trust_function_creators
+    - systemd_enable_start_zabbix-proxy
+  register: zabbix_server_script
+  
+- name: "Transfer templates to {{ ansible_hostname }} on host '{{ ansible_hostname }}'"
+  template:
+    src: "{{ zabbix_template.src }}"
+    dest: "{{ zabbix_template.dest }}"
+    owner: "{{ zabbix_template.owner }}"
+    group: "{{ zabbix_template.group }}"
+    mode: "{{ zabbix_template.mode }}"
+    backup: yes
+  loop:
+    - { src: 'templates/zabbix_proxy.conf.j2', dest: '/etc/zabbix/zabbix_proxy.conf', owner: 'root', group: 'root', mode: '0600' }
+  loop_control:
+    loop_var: zabbix_template
+  notify:
+    - systemd_restart_zabbix-proxy
+    
+- name: "Allow traffic from Zabbix server to Zabbix Agent (Passive on port 10050/tcp) on host '{{ ansible_hostname }}'"
+  community.general.ufw:
+    rule: allow
+    port: "{{ ufw.port }}"
+    proto: "{{ ufw.proto }}"
+  loop:
+    - { port: '10050', proto: 'tcp', desc: 'Allow traffic from Zabbix server to Zabbix Agent (Passive) on port 10050/tcp' }
+  loop_control:
+    loop_var: ufw
