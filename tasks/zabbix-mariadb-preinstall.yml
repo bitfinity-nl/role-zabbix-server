@@ -17,8 +17,9 @@
 - name: "Set MariaDB version for Zabbix '{{ item.version }}' release"
   ansible.builtin.set_fact:
     mariadb_docker_image_tags: '{{ item.mariadb_docker_version }}'
+  when: zabbix_install_version == item.version
     
 - name: "Install MariaDB docker"
   ansible.builtin.include_role:
     name: role-mariadb-docker
-  when: ansible_distribution == "Ubuntu" and zabbix_install_version == item.version
+  when: zabbix_install_version == item.version
