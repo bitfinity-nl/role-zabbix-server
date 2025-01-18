@@ -12,15 +12,19 @@
 #- name: "Install Zabbix server version 6 on Ubuntu 24.04LTS (Noble Numbat)"
 #  include_tasks: tasks/2404/zabbix-server-6.yml
 
+- name: "Set MariaDB version for Zabbix '{{ item.version }}' release"
+  ansible.builtin.set_fact:
+    mariadb_docker_image_tags: '{{ item.mariadb_docker_version }}'
+    
 #- name: "Install apache2"
 #  include_tasks: tasks/2404/apache2.yml
 - name: "Install MariaDB docker"
   ansible.builtin.include_role:
     name: role-mariadb-docker
-  with_items: "{{ zabbix_repository }}"
+  #with_items: "{{ zabbix_repository }}"
   when: ansible_distribution == "Ubuntu"    
     
 - name: "Install Zabbix server when operating system is Ubuntu on host '{{ ansible_hostname }}'"
   include_tasks: tasks/zabbix-server-version.yml
-  with_items: "{{ zabbix_repository }}"
+  #with_items: "{{ zabbix_repository }}"
   when: ansible_distribution == "Ubuntu"
