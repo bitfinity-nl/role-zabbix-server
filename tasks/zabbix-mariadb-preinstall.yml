@@ -21,4 +21,4 @@
 - name: "Install MariaDB docker"
   ansible.builtin.include_role:
     name: role-mariadb-docker
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution == "Ubuntu" and zabbix_install_version == item.version
