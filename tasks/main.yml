@@ -13,7 +13,7 @@
 #  include_tasks: tasks/2404/zabbix-server-6.yml
     
 - name: "Install MariaDB docker"
-  include_tasks: tasks/zabbix-server-version.yml
+  include_tasks: tasks/zabbix-mariadb-preinstall.yml
   with_items: "{{ zabbix_repository }}"
   when: ansible_distribution == "Ubuntu"    
     
