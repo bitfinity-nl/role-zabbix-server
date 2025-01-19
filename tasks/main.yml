@@ -9,15 +9,15 @@
 # Description:
 #   Playbook for deploying Zabbix server
 #    
-- name: "Install MariaDB docker"
-  include_tasks: tasks/zabbix-mariadb-preinstall.yml
-  with_items: "{{ zabbix_repository }}"
-  when: ansible_distribution == "Ubuntu"    
-    
-#- name: "Install Zabbix server when operating system is Ubuntu on host '{{ ansible_hostname }}'"
-#  include_tasks: tasks/zabbix-server-version.yml
+#- name: "Install MariaDB docker"
+#  include_tasks: tasks/zabbix-mariadb-preinstall.yml
 #  with_items: "{{ zabbix_repository }}"
-#  when: ansible_distribution == "Ubuntu"
+#  when: ansible_distribution == "Ubuntu"    
+    
+- name: "Install Zabbix server when operating system is Ubuntu on host '{{ ansible_hostname }}'"
+  include_tasks: tasks/zabbix-server-version.yml
+  with_items: "{{ zabbix_repository }}"
+  when: ansible_distribution == "Ubuntu"
 
 #- name: "Install apache2"
 #  include_tasks: tasks/2404/apache2.yml
