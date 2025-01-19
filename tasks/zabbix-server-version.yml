@@ -7,8 +7,8 @@
 #  File: tasks/ubuntu/zabbix-server-version.yml
 #
 #  Description:
-#    This task file wil determine which version   
-#    of the Zabbix server wil be installed.
+#    This task file wil determine which version of  
+#    the Zabbix server and MariaDB wil be installed.
 # 
 - name: "Set facts for MariaDB server and Zabbix"
   ansible.builtin.set_fact:
