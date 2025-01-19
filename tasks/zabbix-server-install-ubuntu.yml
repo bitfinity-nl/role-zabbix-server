@@ -54,12 +54,14 @@
     login_user: "{{ zabbix_server_administrative_user }}"
     login_password: "{{ zabbix_server_administrative_pass }}"
   no_log: True
-    
+
+# ---
+
 - name: "Copy MariaDB / MySQL database schema to the docker container"
   community.docker.docker_container_copy_into:
     container: mariadb
-    path: /usr/share/zabbix-sql-scripts/mysql/proxy.sql
-    container_path: /zabbix_proxy.sql
+    path: /usr/share/zabbix-sql-scripts/mysql/server.sql.gz
+    container_path: /zabbix_server.sql.gz
   notify:
     - mariadb_disable_global_log_bin_trust_function_creators
     - mariadb_import_database_schema
