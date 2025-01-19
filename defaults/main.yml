@@ -12,14 +12,14 @@
 #
 
 # -- Default Zabbix configuration settings --
-zbx_version_url                     : 'https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_7.0-1+ubuntu24.04_all.deb'
+#zbx_version_url                     : 'https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_7.0-1+ubuntu24.04_all.deb'
 
 # -- Default MariaDB configuration settings -- 
-zbx_mariadb_zbx_user                : 'zabbix'
-zbx_mariadb_zbx_pass                : 'your_password'
-zbx_mariadb_dbname                  : 'zabbix'
-zbx_mariadb_root                    : 'root'
-zbx_mariadb_root_pwd                : 'your_root_password'
+#zbx_mariadb_zbx_user                : 'zabbix'
+#zbx_mariadb_zbx_pass                : 'your_password'
+#zbx_mariadb_dbname                  : 'zabbix'
+#zbx_mariadb_root                    : 'root'
+#zbx_mariadb_root_pwd                : 'your_root_password'
 
 # -- Default Apache2 configuration settings -- 
 zbx_apache2_serveradmin             : 'zabbix@example.com'
@@ -27,7 +27,6 @@ zbx_apache2_servername              : 'zabbix.example.com'
 zbx_apache2_sslcertificatefile      : '/etc/letsencrypt/live/zabbix.example.com/cert.pem'
 zbx_apache2_sslcertificatekeyfile   : '/etc/letsencrypt/live/zabbix.example.com/privekey.pem'
 zbx_apache2_sslcertificatechainfile : '/etc/letsencrypt/live/zabbix.example.com/chain.pem'
-
 
 # -- Zabbix repository settings --
 # 
@@ -50,6 +49,61 @@ zabbix_repository:
       ubuntu_source          : 'https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_6.0+ubuntu{{ ansible_distribution_version }}_all.deb',
       mariadb_docker_version : ''
       }
+
+# -- Zabbix server settings --
+#
+# Variable(s):
+#   zabbix_server_administrative_user : 'root'
+#   zabbix_server_administrative_pass : '{{ global_mariadb_root_pass }}'
+#   zabbix_server_dbname              : 'zabbix_server'
+#   zabbix_server_dbuser              : 'zabbix'
+#   zabbix_server_dbpass              : 'useryourowndatabasepassword' 
+#
+zabbix_server_administrative_user          : 'root'
+zabbix_server_administrative_pass          : '{{ global_mariadb_root_pass }}'
+zabbix_server_dbname                       : 'zabbix_server'
+zabbix_server_dbuser                       : 'zabbix'
+zabbix_server_dbpass                       : 'useryourowndatabasepassword' 
+zabbix_server_dbhost                       : '127.0.0.1'
+
+# -- Settings zabbix_server.conf --
+zabbix_server_servermode                    : '0'
+zabbix_server_server                       : 'zabbix-server.example.com'
+zabbix_server_listenport                   : '10051'
+zabbix_server_logtype                      : 'file'
+zabbix_server_logfile                      : '/var/log/zabbix/zabbix_server.log'
+zabbix_server_logfilesize                  : '1'
+zabbix_server_debuglevel                   : '3'
+zabbix_server_enableremotecommands         : '1'
+zabbix_server_logremotecommands            : '1'
+zabbix_server_pidfile                      : '/run/zabbix/zabbix_server.pid'
+zabbix_server_socketdir                    : '/run/zabbix'
+
+zabbix_server_serverlocalbuffer             : '0'
+zabbix_server_serverofflinebuffer           : '1'
+zabbix_server_serverbuffermode              : 'hybrid'
+zabbix_server_servermemorybuffersize        : '16M'
+zabbix_server_servermemorybufferage         : '0'
+zabbix_server_serverconfigfrequency         : '10'
+zabbix_server_datasenderfrequency          : '1'
+zabbix_server_startpollers                 : '5'
+zabbix_server_startagentpollers            : '1'
+zabbix_server_starthttpagentpollers        : '1'
+zabbix_server_startagentsnmppollers        : '1'
+zabbix_server_maxconcurrentchecksperpoller : '1000'
+zabbix_server_startpreprocessors           : '16'
+zabbix_server_startpollersunreachable      : '1'
+zabbix_server_starttrappers                : '5'
+zabbix_server_startpingers                 : '1'
+zabbix_server_startdiscoverers             : '5'
+zabbix_server_starthttppollers             : '1'
+
+
+
+
+
+
+
 
 
 
