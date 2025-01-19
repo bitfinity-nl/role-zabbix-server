@@ -17,9 +17,9 @@
     state: present
 #  loop: "{{ zabbix_server_locales }}"
   loop:
-      - en_US.UTF-8
-      - en_GB.UTF-8
-      - nl_NL.UTF-8
+    - { name: 'en_US.UTF-8' }
+    - { name: 'en_GB.UTF-8' }
+    - { name: 'nl_NL.UTF-8' }
   loop_control:
     loop_var: locale
 
