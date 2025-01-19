@@ -22,5 +22,4 @@
   
 - name: "Install Zabbix server when the install version '{{ zabbix_install_version }}' is equal to the profile version '{{ item.version }}' on host '{{ ansible_hostname }}'"
   include_tasks: tasks/zabbix-server-install-ubuntu.yml
-  with_items: "{{ zabbix_repository }}"
   when: zabbix_install_version == item.version
