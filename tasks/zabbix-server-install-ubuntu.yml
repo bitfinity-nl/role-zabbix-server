@@ -30,7 +30,7 @@
     - { name: 'snmp-mibs-downloader', desc: 'SNMP mibs downloadder' }
     - { name: 'zabbix-server-mysql', desc: 'Zabbix server MySQL version' }
     - { name: 'zabbix-frontend-php', desc: 'Zabbix frontend' }
-    - { name: 'zabbix-apache-conf', desc: 'Zabbix Apache configuration }
+    - { name: 'zabbix-apache-conf', desc: 'Zabbix Apache configuration' }
     - { name: 'zabbix-sql-scripts', desc: 'Zabbix SQL scripts' }
   loop_control:
     loop_var: packages
