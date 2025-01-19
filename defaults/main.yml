@@ -61,7 +61,7 @@ zabbix_repository:
 #
 zabbix_server_administrative_user          : 'root'
 zabbix_server_administrative_pass          : '{{ global_mariadb_root_pass }}'
-zabbix_server_dbname                       : 'zabbix_server'
+zabbix_server_dbname                       : 'zabbix'
 zabbix_server_dbuser                       : 'zabbix'
 zabbix_server_dbpass                       : 'useryourowndatabasepassword' 
 zabbix_server_dbhost                       : '127.0.0.1'
