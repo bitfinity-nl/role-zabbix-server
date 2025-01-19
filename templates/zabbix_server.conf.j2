@@ -10,6 +10,7 @@
 # Range: 1024-32767
 # Default:
 # ListenPort=10051
+ListenPort={{ zabbix_server_listenport }}
 
 ### Option: SourceIP
 #	Source IP address for outgoing connections.
@@ -27,6 +28,7 @@
 # Mandatory: no
 # Default:
 # LogType=file
+LogType={{ zabbix_server_logtype }}
 
 ### Option: LogFile
 #	Log file name for LogType 'file' parameter.
@@ -35,7 +37,7 @@
 # Default:
 # LogFile=
 
-LogFile=/var/log/zabbix/zabbix_server.log
+LogFile={{ zabbix_server_logfile }}
 
 ### Option: LogFileSize
 #	Maximum size of log file in MB.
@@ -46,7 +48,7 @@ LogFile=/var/log/zabbix/zabbix_server.log
 # Default:
 # LogFileSize=1
 
-LogFileSize=0
+LogFileSize={{ zabbix_server_logfilesize }}
 
 ### Option: DebugLevel
 #	Specifies debug level:
@@ -61,6 +63,7 @@ LogFileSize=0
 # Range: 0-5
 # Default:
 # DebugLevel=3
+DebugLevel={{ zabbix_server_debuglevel }}
 
 ### Option: PidFile
 #	Name of PID file.
@@ -69,7 +72,7 @@ LogFileSize=0
 # Default:
 # PidFile=/tmp/zabbix_server.pid
 
-PidFile=/run/zabbix/zabbix_server.pid
+PidFile={{ zabbix_server_pidfile }}
 
 ### Option: SocketDir
 #	IPC socket directory.
@@ -79,7 +82,7 @@ PidFile=/run/zabbix/zabbix_server.pid
 # Default:
 # SocketDir=/tmp
 
-SocketDir=/run/zabbix
+SocketDir={{ zabbix_server_socketdir }}
 
 ### NOTE: Support for Oracle DB is deprecated since Zabbix 7.0 and will be removed in future versions.
 
@@ -93,6 +96,7 @@ SocketDir=/run/zabbix
 # Mandatory: no
 # Default:
 # DBHost=localhost
+DBHost={{ zabbix_server_dbhost }}
 
 ### Option: DBName
 #	Database name.
@@ -104,7 +108,7 @@ SocketDir=/run/zabbix
 # Default:
 # DBName=
 
-DBName=zabbix
+DBName={{ zabbix_server_dbname }}
 
 ### Option: DBSchema
 #	Schema name. Used for PostgreSQL.
@@ -120,7 +124,7 @@ DBName=zabbix
 # Default:
 # DBUser=
 
-DBUser=zabbix
+DBUser={{ zabbix_server_dbuser }}
 
 ### Option: DBPassword
 #	Database password.
@@ -129,6 +133,7 @@ DBUser=zabbix
 # Mandatory: no
 # Default:
 # DBPassword=
+DBPassword={{ zabbix_server_dbpass }}
 
 ### Option: DBSocket
 #	Path to MySQL socket.
@@ -214,6 +219,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartPollers=5
+StartPollers={{ zabbix_server_startpollers }}
 
 ### Option: StartAgentPollers
 #	Number of pre-forked instances of asynchronous Zabbix agent pollers. Also see MaxConcurrentChecksPerPoller.
@@ -222,6 +228,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartAgentPollers=1
+StartAgentPollers={{ zabbix_server_startagentpollers }}
 
 ### Option: StartHTTPAgentPollers
 #	Number of pre-forked instances of asynchronous HTTP agent pollers. Also see MaxConcurrentChecksPerPoller.
@@ -230,6 +237,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartHTTPAgentPollers=1
+StartHTTPAgentPollers={{ zabbix_server_starthttpagentpollers }}
 
 ### Option: StartSNMPPollers
 #	Number of pre-forked instances of asynchronous SNMP pollers. Also see MaxConcurrentChecksPerPoller.
@@ -238,6 +246,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartSNMPPollers=1
+StartSNMPPollers={{ zabbix_server_startagentsnmppollers }}
 
 ### Option: MaxConcurrentChecksPerPoller
 #	Maximum number of asynchronous checks that can be executed at once by each HTTP agent poller or agent poller.
@@ -246,6 +255,7 @@ DBUser=zabbix
 # Range: 1-1000
 # Default:
 # MaxConcurrentChecksPerPoller=1000
+MaxConcurrentChecksPerPoller={{ zabbix_server_maxconcurrentchecksperpoller }}
 
 ### Option: StartIPMIPollers
 #	Number of pre-forked instances of IPMI pollers.
@@ -255,6 +265,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartIPMIPollers=0
+StartIPMIPollers={{ zabbix_server_startipmipollers }}
 
 
 ### Option: StartPreprocessors
@@ -265,6 +276,7 @@ DBUser=zabbix
 # Range: 1-1000
 # Default:
 # StartPreprocessors=16
+StartPreprocessors={{ zabbix_server_startpreprocessors }}
 
 ### Option: StartConnectors
 #	Number of pre-forked instances of connector workers.
@@ -274,6 +286,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartConnectors=0
+StartConnectors={{ zabbix_server_startconnectors }}
 
 ### Option: StartPollersUnreachable
 #	Number of pre-forked instances of pollers for unreachable hosts (including IPMI and Java).
@@ -284,6 +297,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartPollersUnreachable=1
+StartPollersUnreachable={{ zabbix_server_startpollersunreachable }}
 
 ### Option: StartHistoryPollers
 #	Number of pre-forked instances of history pollers.
@@ -294,6 +308,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartHistoryPollers=5
+StartHistoryPollers={{ zabbix_server_starthistorypollers }}
 
 ### Option: StartTrappers
 #	Number of pre-forked instances of trappers.
@@ -305,6 +320,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartTrappers=5
+StartTrappers={{ zabbix_server_starttrappers }}
 
 ### Option: StartPingers
 #	Number of pre-forked instances of ICMP pingers.
@@ -313,6 +329,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartPingers=1
+StartPingers={{ zabbix_server_startpingers }}
 
 ### Option: StartDiscoverers
 #	Number of pre-started instances of discovery workers.
@@ -321,6 +338,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartDiscoverers=5
+StartDiscoverers={{ zabbix_server_startdiscoverers }}
 
 ### Option: StartHTTPPollers
 #	Number of pre-forked instances of HTTP pollers.
@@ -329,6 +347,7 @@ DBUser=zabbix
 # Range: 0-1000
 # Default:
 # StartHTTPPollers=1
+StartHTTPPollers={{ zabbix_server_starthttppollers }}
 
 ### Option: StartTimers
 #	Number of pre-forked instances of timers.
@@ -340,6 +359,7 @@ DBUser=zabbix
 # Range: 1-1000
 # Default:
 # StartTimers=1
+StartTimers={{ zabbix_server_starttimers }}
 
 ### Option: StartEscalators
 #	Number of pre-forked instances of escalators.
@@ -348,6 +368,7 @@ DBUser=zabbix
 # Range: 1-100
 # Default:
 # StartEscalators=1
+StartEscalators={{ zabbox_server_startescalator }}
 
 ### Option: StartAlerters
 #	Number of pre-forked instances of alerters.
