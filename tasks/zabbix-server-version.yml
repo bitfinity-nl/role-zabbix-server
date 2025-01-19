@@ -15,9 +15,15 @@
   community.general.locale_gen:
     name: "{{ locale.name }}"
     state: present
-  loop: "{{ zabbix_server_locales }}"
+#  loop: "{{ zabbix_server_locales }}"
+  loop:
+      - en_US.UTF-8
+      - en_GB.UTF-8
+      - nl_NL.UTF-8
   loop_control:
     loop_var: locale
+
+
 
 - name: "Set facts for MariaDB server and Zabbix"
   ansible.builtin.set_fact:
