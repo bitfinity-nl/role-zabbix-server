@@ -15,7 +15,7 @@
   community.general.locale_gen:
     name: "{{ locale.name }}"
     state: present
-  loop: {{ zabbix_server_locales }}
+  loop: "{{ zabbix_server_locales }}"
   loop_control:
     loop_var: locale
 
