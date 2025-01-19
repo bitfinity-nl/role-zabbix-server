@@ -55,10 +55,10 @@ zabbix_server_locales:
           - { name: 'en_US.UTF-8',
               desc: 'United States'
               }
-          - { name: en_GB.UTF-8
+          - { name: 'en_GB.UTF-8',
               desc: 'United Kingdom'
               }
-          - { name: nl_NL.UTF-8
+          - { name: 'nl_NL.UTF-8',
               desc: 'The Netherlands'
               }
     
