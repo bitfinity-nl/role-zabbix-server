@@ -7,13 +7,13 @@
 # File: tasks/main.yml
 #
 # Description:
-#   Playbook for deploying Zabbix server
-#    
-#- name: "Install MariaDB docker"
-#  include_tasks: tasks/zabbix-mariadb-preinstall.yml
-#  with_items: "{{ zabbix_repository }}"
-#  when: ansible_distribution == "Ubuntu"    
-    
+#   This task file contains the steps for installing a 
+#   Zabbix server via packages and MariaDB server via docker
+#   This taskfile depends on 'role-mariadb-docker'.
+#
+#   Source(s):
+#     - https://github.com/bitfinity-nl/role-mariadb-docker/
+#   
 - name: "Install Zabbix server when operating system is Ubuntu on host '{{ ansible_hostname }}'"
   include_tasks: tasks/zabbix-server-version.yml
   with_items: "{{ zabbix_repository }}"
