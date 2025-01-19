@@ -10,29 +10,6 @@
 #    This task file wil determine which version of  
 #    the Zabbix server and MariaDB wil be installed.
 # 
-- name: "Install dependencies for Zabbix"
-  ansible.builtin.apt:
-    name: "{{ dependencies_apt.name }}"
-    state: present
-  loop:
-    - { name: 'locales' }
-  loop_control:
-    loop_var: dependencies_apt
-
-- name: "Ensure multiple locales exist on host '{{ ansible_hostname }}'"
-  community.general.locale_gen:
-    name: "{{ locale.name }}"
-    state: present
-#  loop: "{{ zabbix_server_locales }}"
-  loop:
-    - { name: 'en_US.UTF-8' }
-    - { name: 'en_GB.UTF-8' }
-    - { name: 'nl_NL.UTF-8' }
-  loop_control:
-    loop_var: locale
-
-
-
 - name: "Set facts for MariaDB server and Zabbix"
   ansible.builtin.set_fact:
     mariadb_docker_image_tags: '{{ item.mariadb_docker_version }}'
