@@ -15,10 +15,10 @@
     mariadb_docker_image_tags: '{{ item.mariadb_docker_version }}'
   when: zabbix_install_version == item.version
     
-- name: "Install MariaDB server '{{ item.mariadb_docker_version }}' via docker for Zabbix '{{ item.version }}' on host '{{ ansible_hostname }}'"
-  ansible.builtin.include_role:
-    name: role-mariadb-docker
-  when: zabbix_install_version == item.version
+#- name: "Install MariaDB server '{{ item.mariadb_docker_version }}' via docker for Zabbix '{{ item.version }}' on host '{{ ansible_hostname }}'"
+#  ansible.builtin.include_role:
+#    name: role-mariadb-docker
+#  when: zabbix_install_version == item.version
   
 - name: "Install Zabbix server when the install version '{{ zabbix_install_version }}' is equal to the profile version '{{ item.version }}' on host '{{ ansible_hostname }}'"
   include_tasks: tasks/zabbix-server-install-ubuntu.yml
