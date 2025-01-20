@@ -1,9 +1,9 @@
 ---
 dependencies: []
-#  - src: https://github.com/bitfinity-nl/role-mariadb-docker.git
-#    scm: git
-#    version: main
-#    name: role-mariadb-docker
+  - src: https://github.com/bitfinity-nl/role-mariadb-docker.git
+    scm: git
+    version: main
+    name: role-mariadb-docker
 
 galaxy_info:
   role_name: role-zabbix-server
