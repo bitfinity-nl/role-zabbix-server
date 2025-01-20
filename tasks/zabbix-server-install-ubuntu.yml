@@ -64,6 +64,11 @@
     state: present
     login_user: "{{ zabbix_server_administrative_user }}"
     login_password: "{{ zabbix_server_administrative_pass }}"
+  notify:
+    - mariadb_disable_global_log_bin_trust_function_creators
+    - mariadb_import_database_schema
+    - mariadb_enable_global_log_bin_trust_function_creators
+    - systemd_enable_start_zabbix-server
   no_log: false
 
 - name: "Create initial database user on host '{{ ansible_hostname }}' in docker container 'mariadb' on host '{{ ansible_hostname }}'"
@@ -83,11 +88,11 @@
     container: mariadb
     path: /usr/share/zabbix-sql-scripts/mysql/server.sql.gz
     container_path: /zabbix_server.sql.gz
-  notify:
-    - mariadb_disable_global_log_bin_trust_function_creators
-    - mariadb_import_database_schema
-    - mariadb_enable_global_log_bin_trust_function_creators
-    - systemd_enable_start_zabbix-server
+#  notify:
+#    - mariadb_disable_global_log_bin_trust_function_creators
+#    - mariadb_import_database_schema
+#    - mariadb_enable_global_log_bin_trust_function_creators
+#    - systemd_enable_start_zabbix-server
   register: zabbix_server_script
   
 - name: "Transfer templates to {{ ansible_hostname }} on host '{{ ansible_hostname }}'"
