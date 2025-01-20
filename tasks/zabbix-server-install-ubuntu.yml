@@ -9,6 +9,11 @@
 # Description:
 #   Taskfile for deploying Zabbix server on Ubuntu.
 #
+
+- name: "Install MariaDB server '{{ item.mariadb_docker_version }}' via docker for Zabbix '{{ item.version }}' on host '{{ ansible_hostname }}'"
+  ansible.builtin.include_role:
+    name: role-mariadb-docker
+    
 - name: "Install dependencies for Zabbix"
   ansible.builtin.apt:
     name: "{{ dependencies_apt.name }}"
