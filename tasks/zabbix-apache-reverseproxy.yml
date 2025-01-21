@@ -10,12 +10,12 @@
 #   This task file contains tasks
 #   to configure Apache2 for Zabbix.
 #
-- name: "Install APT packages for Apache2 on host {{ ansible_hostname }}"
+- name: "Install APT packages for Apache2 on host '{{ ansible_hostname }}'"
   ansible.builtin.apt:
     pkg:
     - apache2
 
-- name: "Enable the Apache2 modules on host {{ ansible_hostname }}"
+- name: "Enable the Apache2 modules on host '{{ ansible_hostname }}'"
   community.general.apache2_module:
     state: present
     name: "{{ apache_module }}"
@@ -26,13 +26,13 @@
     loop_var: apache_module
   notify: restart_apache2
 
-- name: "Transfer zabbix.conf.j2 template to /etc/apache2/sites-available/zabbix.conf on host {{ ansible_hostname }}"
+- name: "Transfer zabbix.conf.j2 template to /etc/apache2/sites-available/zabbix.conf on host '{{ ansible_hostname }}'"
   ansible.builtin.template:
     src: "templates/zabbix.conf.j2"
     dest: "/etc/apache2/sites-available/zabbix.conf"
   notify: reload_apache2
 
-- name: "Disable default Apache2 config files on host {{ ansible_hostname }}"
+- name: "Disable default Apache2 config files on host '{{ ansible_hostname }}'"
   ansible.builtin.command: "a2dissite {{ apache_config }}"
   loop:
     - 000-default.conf
@@ -42,6 +42,6 @@
   notify:
     - restart_apache2
     
-- name: "Enable Apache2 *.conf  on host {{ ansible_hostname }}"
+- name: "Enable Apache2 *.conf  on host '{{ ansible_hostname }}'"
   ansible.builtin.command: "a2ensite zabbix.conf"
   notify: reload_apache2
