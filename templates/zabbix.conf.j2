@@ -10,8 +10,8 @@
 
 <VirtualHost _default_:443>
 
-  ServerAdmin ict@vissersenergygroup.nl
-  ServerName {{ zbx_apache2_servername }}
+  ServerAdmin {{ zabbix_apache2_serveradmin }}
+  ServerName {{ zabbix_apache2_servername }}
 
   DocumentRoot /usr/share/zabbix
 
@@ -19,9 +19,9 @@
   CustomLog ${APACHE_LOG_DIR}/access.log combined
 
   SSLEngine on
-  SSLCertificateFile {{ zbx_apache2_sslcertificatefile }}
-  SSLCertificateKeyFile {{ zbx_apache2_sslcertificatekeyfile }}
-  SSLCertificateChainFile {{ zbx_apache2_sslcertificatechainfile }}
+  SSLCertificateFile {{ zabbix_apache2_sslcertificatefile }}
+  SSLCertificateKeyFile {{ zabbix_apache2_sslcertificatekeyfile }}
+  SSLCertificateChainFile {{ zabbix_apache2_sslcertificatechainfile }}
 
   <FilesMatch "\.(cgi|shtml|phtml|php)$">
      SSLOptions +StdEnvVars
