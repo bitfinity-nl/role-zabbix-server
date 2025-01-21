@@ -22,11 +22,11 @@
 #zbx_mariadb_root_pwd                : 'your_root_password'
 
 # -- Default Apache2 configuration settings -- 
-zbx_apache2_serveradmin             : 'zabbix@example.com'
-zbx_apache2_servername              : 'zabbix.example.com'
-zbx_apache2_sslcertificatefile      : '/etc/letsencrypt/live/zabbix.example.com/cert.pem'
-zbx_apache2_sslcertificatekeyfile   : '/etc/letsencrypt/live/zabbix.example.com/privekey.pem'
-zbx_apache2_sslcertificatechainfile : '/etc/letsencrypt/live/zabbix.example.com/chain.pem'
+zabbix_apache2_serveradmin             : 'zabbix@example.com'
+zabbix_apache2_servername              : 'zabbix.example.com'
+zabbix_apache2_sslcertificatefile      : '/etc/letsencrypt/live/zabbix.example.com/cert.pem'
+zabbix_apache2_sslcertificatekeyfile   : '/etc/letsencrypt/live/zabbix.example.com/privekey.pem'
+zabbix_apache2_sslcertificatechainfile : '/etc/letsencrypt/live/zabbix.example.com/chain.pem'
 
 # -- Zabbix repository settings --
 # 
