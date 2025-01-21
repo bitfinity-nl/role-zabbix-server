@@ -45,3 +45,8 @@
 - name: "Enable configurationfile 'zabbix.conf' for Apache2 on host '{{ ansible_hostname }}'"
   ansible.builtin.command: "a2ensite zabbix.conf"
   notify: reload_apache2
+
+- name: "Enable and allow profile 'Apache Full' for Uncomplicated Firewall (UFW) for Apache on host {{ ansible_hostname }}"
+  community.general.ufw:
+    rule: allow
+    name: Apache Full
