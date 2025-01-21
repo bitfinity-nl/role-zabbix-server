@@ -19,5 +19,5 @@
   with_items: "{{ zabbix_repository }}"
   when: ansible_distribution == "Ubuntu"
 
-- name: "Install apache2"
-  include_tasks: tasks/2404/apache2.yml
+- name: "Install and configure Apache as a reverseproxy on host '{{ ansible_hostname }}'"
+  include_tasks: tasks/zabbix-apache-reverseproxy.yml
