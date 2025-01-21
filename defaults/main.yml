@@ -74,7 +74,7 @@ zabbix_server_locales:
   - { name: 'es_ES.UTF-8', desc: 'Spanish' }
   - { name: 'tr_TR.UTF-8', desc: 'Turkish' }
   - { name: 'uk_UA.UTF-8', desc: 'Ukrainian' }
-  #- { name: 'vi_VN.UTF-8', desc: 'Vietnamese' }
+  - { name: 'vi_VN.UTF-8', desc: 'Vietnamese' }
   
 # -- Zabbix server settings --
 #
