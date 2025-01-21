@@ -1,9 +1,9 @@
 ---
 dependencies:
-#  - src: https://github.com/bitfinity-nl/role-docker-engine.git
-#    scm: git
-#    version: main
-#    name: role-docker-engine
+  - src: https://github.com/bitfinity-nl/role-docker-engine.git
+    scm: git
+    version: main
+    name: role-docker-engine
   - src: https://github.com/bitfinity-nl/role-mariadb-docker.git
     scm: git
     version: main
