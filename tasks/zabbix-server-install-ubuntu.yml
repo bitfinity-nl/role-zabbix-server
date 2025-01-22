@@ -77,22 +77,16 @@
   notify:
     - mariadb_disable_global_log_bin_trust_function_creators
     - mariadb_import_database_schema
+    - convert_database
     - mariadb_enable_global_log_bin_trust_function_creators
     - systemd_enable_start_zabbix-server
   no_log: True
-
-# ---
 
 - name: "Copy MariaDB / MySQL database schema to the docker container"
   community.docker.docker_container_copy_into:
     container: mariadb
     path: /usr/share/zabbix-sql-scripts/mysql/server.sql.gz
     container_path: /zabbix_server.sql.gz
-#  notify:
-#    - mariadb_disable_global_log_bin_trust_function_creators
-#    - mariadb_import_database_schema
-#    - mariadb_enable_global_log_bin_trust_function_creators
-#    - systemd_enable_start_zabbix-server
   register: zabbix_server_script
   
 - name: "Transfer templates to {{ ansible_hostname }} on host '{{ ansible_hostname }}'"
