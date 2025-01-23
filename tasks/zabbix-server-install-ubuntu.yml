@@ -65,7 +65,7 @@
     login_host: "127.0.0.1"
     login_user: "{{ zabbix_server_administrative_user }}"
     login_password: "{{ zabbix_server_administrative_pass }}"
-  no_log: false
+  no_log: true
 
 - name: "Create initial database user on host '{{ ansible_hostname }}' in docker container 'mariadb' on host '{{ ansible_hostname }}'"
   community.mysql.mysql_user:
@@ -73,6 +73,7 @@
     password: "{{ zabbix_server_dbpass }}"
     priv: "{{ zabbix_server_dbname }}.*:ALL,GRANT"
     state: present
+    login_host: "127.0.0.1"
     login_user: "{{ zabbix_server_administrative_user }}"
     login_password: "{{ zabbix_server_administrative_pass }}"
   notify:
