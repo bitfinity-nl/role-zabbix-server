@@ -79,7 +79,6 @@
   notify:
     - mariadb_disable_global_log_bin_trust_function_creators
     - mariadb_import_database_schema
-    - convert_database
     - mariadb_enable_global_log_bin_trust_function_creators
     - systemd_enable_start_zabbix-server
   no_log: True
