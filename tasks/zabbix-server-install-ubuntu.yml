@@ -56,22 +56,11 @@
   loop_control:
     loop_var: packages
     
-- name: "Create initial database on host '{{ ansible_hostname }}' in docker container 'mariadb' on host '{{ ansible_hostname }}'"
+- name: "Create Zabbix database '{{ zabbix_server_dbname }}' on host '{{ ansible_hostname }}' in docker container 'mariadb' on host '{{ ansible_hostname }}'"
   community.mysql.mysql_db:
     name: "{{ zabbix_server_dbname }}"
     encoding: utf8mb4
     collation: utf8mb4_bin
-    state: present
-    login_host: "127.0.0.1"
-    login_user: "{{ zabbix_server_administrative_user }}"
-    login_password: "{{ zabbix_server_administrative_pass }}"
-  no_log: true
-
-- name: "Create initial database user on host '{{ ansible_hostname }}' in docker container 'mariadb' on host '{{ ansible_hostname }}'"
-  community.mysql.mysql_user:
-    name: "{{ zabbix_server_dbuser }}"
-    password: "{{ zabbix_server_dbpass }}"
-    priv: "{{ zabbix_server_dbname }}.*:ALL,GRANT"
     state: present
     login_host: "127.0.0.1"
     login_user: "{{ zabbix_server_administrative_user }}"
@@ -81,6 +70,17 @@
     - mariadb_import_database_schema
     - mariadb_enable_global_log_bin_trust_function_creators
     - systemd_enable_start_zabbix-server
+  no_log: True
+  
+- name: "Create Zabbix database user '{{ zabbix_server_dbuser }}' for database '{{ zabbix_server_dbname }}' host '{{ ansible_hostname }}' in docker container 'mariadb' on host '{{ ansible_hostname }}'"
+  community.mysql.mysql_user:
+    name: "{{ zabbix_server_dbuser }}"
+    password: "{{ zabbix_server_dbpass }}"
+    priv: "{{ zabbix_server_dbname }}.*:ALL,GRANT"
+    state: present
+    login_host: "127.0.0.1"
+    login_user: "{{ zabbix_server_administrative_user }}"
+    login_password: "{{ zabbix_server_administrative_pass }}"
   no_log: True
 
 - name: "Copy MariaDB / MySQL database schema to the docker container"
