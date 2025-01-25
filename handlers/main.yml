@@ -45,7 +45,6 @@
     name: zabbix-server
     state: restarted
 
-
 - name: "restart_apache2"
   ansible.builtin.systemd:
     name: apache2
@@ -57,4 +56,3 @@
   ansible.builtin.systemd:
     name: apache2
     state: reloaded
-
