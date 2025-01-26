@@ -23,13 +23,13 @@
   loop_control:
     loop_var: dependencies_apt
 
-- name: "Ensure multiple locales exist on host '{{ ansible_hostname }}'"
-  community.general.locale_gen:
-    name: "{{ locale.name }}"
-    state: present
-  loop: "{{ zabbix_server_locales }}"
-  loop_control:
-    loop_var: locale
+#- name: "Ensure multiple locales exist on host '{{ ansible_hostname }}'"
+#  community.general.locale_gen:
+#    name: "{{ locale.name }}"
+#    state: present
+#  loop: "{{ zabbix_server_locales }}"
+#  loop_control:
+#    loop_var: locale
 
 - name: "Download & Install Zabbix {{ item.version }} deb package from '{{ item.ubuntu_source }}' on host '{{ ansible_hostname }}'"
   ansible.builtin.apt:
