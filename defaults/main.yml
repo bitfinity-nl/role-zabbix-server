@@ -52,28 +52,28 @@ zabbix_repository:
 
 
 zabbix_server_locales:
-  - { name: 'en_GB.UTF-8', desc: 'United Kingdom' }
+#  - { name: 'en_GB.UTF-8', desc: 'United Kingdom' }
   - { name: 'en_US.UTF-8', desc: 'United States' }
-  - { name: 'ca_ES.UTF-8', desc: 'Catalan' }
-  - { name: 'zh_CN.UTF-8', desc: 'Chinese' }
-  - { name: 'cs_CZ.UTF-8', desc: 'Czech' }
-  - { name: 'da_DK.UTF-8', desc: 'Danish' }
-  - { name: 'fr_FR.UTF-8', desc: 'French' }
-  - { name: 'ka_GE.UTF-8', desc: 'Georgian' }
-  - { name: 'de_DE.UTF-8', desc: 'German' }
-  - { name: 'he_IL.UTF-8', desc: 'Hebrew' }
-  - { name: 'it_IT.UTF-8', desc: 'Italian' }
-  - { name: 'ko_KR.UTF-8', desc: 'Korean' }
-  - { name: 'ja_JP.UTF-8', desc: 'Japanese' }
-  - { name: 'nb_NO.UTF-8', desc: 'Norwegian' }
-  - { name: 'pl_PL.UTF-8', desc: 'Polish' }
-  - { name: 'pt_BR.UTF-8', desc: 'Portuguese' }
-  - { name: 'pt_PT.UTF-8', desc: 'Portuguese' }
-  - { name: 'ru_RU.UTF-8', desc: 'Russian' }
-  - { name: 'sk_SK.UTF-8', desc: 'Slovak' }
-  - { name: 'es_ES.UTF-8', desc: 'Spanish' }
-  - { name: 'tr_TR.UTF-8', desc: 'Turkish' }
-  - { name: 'uk_UA.UTF-8', desc: 'Ukrainian' }
+#  - { name: 'ca_ES.UTF-8', desc: 'Catalan' }
+#  - { name: 'zh_CN.UTF-8', desc: 'Chinese' }
+#  - { name: 'cs_CZ.UTF-8', desc: 'Czech' }
+#  - { name: 'da_DK.UTF-8', desc: 'Danish' }
+#  - { name: 'fr_FR.UTF-8', desc: 'French' }
+#  - { name: 'ka_GE.UTF-8', desc: 'Georgian' }
+#  - { name: 'de_DE.UTF-8', desc: 'German' }
+#  - { name: 'he_IL.UTF-8', desc: 'Hebrew' }
+#  - { name: 'it_IT.UTF-8', desc: 'Italian' }
+#  - { name: 'ko_KR.UTF-8', desc: 'Korean' }
+#  - { name: 'ja_JP.UTF-8', desc: 'Japanese' }
+#  - { name: 'nb_NO.UTF-8', desc: 'Norwegian' }
+#  - { name: 'pl_PL.UTF-8', desc: 'Polish' }
+#  - { name: 'pt_BR.UTF-8', desc: 'Portuguese' }
+#  - { name: 'pt_PT.UTF-8', desc: 'Portuguese' }
+#  - { name: 'ru_RU.UTF-8', desc: 'Russian' }
+#  - { name: 'sk_SK.UTF-8', desc: 'Slovak' }
+#  - { name: 'es_ES.UTF-8', desc: 'Spanish' }
+#  - { name: 'tr_TR.UTF-8', desc: 'Turkish' }
+#  - { name: 'uk_UA.UTF-8', desc: 'Ukrainian' }
   #- { name: 'vi_VN.UTF-8', desc: 'Vietnamese' }
   
 # -- Zabbix server settings --
