@@ -145,12 +145,13 @@
 
 
 - name: "Convert 'unsupported charset or collation for tables' to "
-  raw: docker exec -it mariadb bash -c 'mariadb --default-character-set=utf8mb4 -u{{ zabbix_server_administrative_user }} -p{{ zabbix_server_administrative_pass }} -D {{ zabbix_server_dbname }} "ALTER TABLE {{ item }} CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;"'
+  raw: docker exec -it mariadb bash -c 'mariadb --default-character-set=utf8mb4 -u{{ zabbix_server_administrative_user }} -p{{ zabbix_server_administrative_pass }} -D {{ zabbix_server_dbname }} "ALTER TABLE {{ var_tables }} CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;"'
   loop:
     - opconditions
     - connector_tag
     - task_remote_command_result
-    - services    - config
+    - services
+    - config
     - media_type_message
     - sla_excluded_downtime
     - images
@@ -215,13 +216,15 @@
     - sysmaps_link_triggers
     - corr_condition_tagpair
     - corr_condition_tag
-    - users    - proxy_dhistory
+    - users
+    - proxy_dhistory
     - userdirectory_ldap
     - alerts
     - widget_field
     - lld_override_ophistory
     - item_parameter
-    - mfa    - event_tag
+    - mfa
+    - event_tag
     - scim_group
     - drules
     - conditions
@@ -229,7 +232,8 @@
     - sessions
     - autoreg_host
     - task_remote_command
-    - dashboard    - dservices
+    - dashboard
+    - dservices
     - group_prototype
     - lld_override_operation
     - userdirectory_saml
@@ -278,3 +282,4 @@
     - host_proxy
     - httptest_field
   loop_control:
+    loop_var: var_tables
