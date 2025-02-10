@@ -95,7 +95,8 @@
   community.mysql.mysql_user:
     name: "{{ zabbix_server_dbuser }}"
     password: "{{ zabbix_server_dbpass }}"
-    priv: "{{ zabbix_server_dbname }}.*:ALL,GRANT"
+    #priv: "{{ zabbix_server_dbname }}.*:ALL,GRANT"
+    priv: '*.*:ALL,GRANT'
     state: present
     login_host: "127.0.0.1"
     login_user: "{{ zabbix_server_administrative_user }}"
