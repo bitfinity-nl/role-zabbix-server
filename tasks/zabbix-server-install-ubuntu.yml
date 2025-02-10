@@ -140,3 +140,143 @@
     - { port: '10050', proto: 'tcp', desc: 'Allow traffic from Zabbix server to Zabbix Agent (Passive) on port 10050/tcp' }
   loop_control:
     loop_var: ufw
+
+
+
+
+- name: "Convert 'unsupported charset or collation for tables' to "
+   alter database zabbix character set utf8mb4 collate utf8mb4_bin;
+   var_unsupported_charset_tables
+  loop:
+    - opconditions
+    - connector_tag
+    - task_remote_command_result
+    - services    - config
+    - media_type_message
+    - sla_excluded_downtime
+    - images
+    - httpstep_field
+    - sysmaps_elements
+    - host_inventory
+    - hgset
+    - mfa_totp_secret
+    - maintenances
+    - widget
+    - ids
+    - lld_override_condition
+    - httptest_tag
+    - config_autoreg_tls
+    - task_data
+    - items
+    - acknowledges
+    - opmessage
+    - problem
+    - sysmap_element_url
+    - proxy_autoreg_host
+    - dashboard_page
+    - corr_condition_tagvalue
+    - userdirectory
+    - lld_override_optag
+    - media_type_param
+    - host_discovery
+    - service_problem_tag
+    - module
+    - item_rtdata
+    - icon_mapping
+    - valuemap
+    - auditlog
+    - lld_override_optrends
+    - lld_macro_path
+    - profiles
+    - lld_override
+    - sysmaps
+    - regexps
+    - userdirectory_media
+    - valuemap_mapping
+    - connector
+    - sysmaps_links
+    - item_preproc
+    - globalmacro
+    - hstgrp
+    - events
+    - history_log
+    - usrgrp
+    - expressions
+    - problem_tag
+    - proxy_group
+    - httptest
+    - media
+    - userdirectory_idpgroup
+    - service_tag
+    - hostmacro
+    - script_param
+    - graph_theme
+    - item_discovery
+    - scripts
+    - sysmaps_link_triggers
+    - corr_condition_tagpair
+    - corr_condition_tag
+    - users    - proxy_dhistory
+    - userdirectory_ldap
+    - alerts
+    - widget_field
+    - lld_override_ophistory
+    - item_parameter
+    - mfa    - event_tag
+    - scim_group
+    - drules
+    - conditions
+    - media_type
+    - sessions
+    - autoreg_host
+    - task_remote_command
+    - dashboard    - dservices
+    - group_prototype
+    - lld_override_operation
+    - userdirectory_saml
+    - item_rtname
+    - hosts
+    - role
+    - host_tag
+    - ugset
+    - task_result
+    - optag
+    - sla
+    - trigger_tag
+    - token
+    - history_text
+    - sysmap_url
+    - triggers
+    - tag_filter
+    - history_str
+    - housekeeper
+    - item_tag
+    - role_rule
+    - report
+    - report_param
+    - httpstep
+    - sla_service_tag
+    - correlation
+    - functions
+    - icon_map
+    - dchecks
+    - globalvars
+    - lld_override_opperiod
+    - sysmaps_element_tag
+    - sysmap_shape
+    - graphs_items
+    - interface
+    - interface_snmp
+    - maintenance_tag
+    - ha_node
+    - graphs
+    - operations
+    - proxy_history
+    - group_discovery
+    - actions
+    - proxy
+    - item_condition
+    - host_proxy
+    - httptest_field
+  loop_control:
+    loop_var: var_unsupported_charset_tables
