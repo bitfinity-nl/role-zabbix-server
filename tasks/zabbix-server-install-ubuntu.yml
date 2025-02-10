@@ -22,7 +22,7 @@
     group: "{{ ansible_zabbix_dir.group }}"
     mode: '{{ ansible_zabbix_dir.mode }}'
   loop:
-    - { path: '/opt/ansible/zabbix/scripts/mariadb/', owner: 'root', group: 'root', mode: '0640', desc: 'Directory for MariaDB fixes' }
+    - { path: '/opt/ansible/zabbix/scripts/mariadb', owner: 'root', group: 'root', mode: '0640', desc: 'Directory for MariaDB fixes' }
   loop_control:
     loop_var: ansible_zabbix_dir
 
