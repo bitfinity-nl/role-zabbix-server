@@ -21,6 +21,10 @@
   raw: docker exec -it mariadb bash -c 'zcat /zabbix_server.sql.gz | mariadb --default-character-set=utf8mb4 -u{{ zabbix_server_dbuser }} -p{{ zabbix_server_dbpass }} {{ zabbix_server_dbname }}'
   no_log: false
 
+- name: "mariadb_convert_dabatabase_schema"
+  raw: docker exec -it mariadb bash -c 'zcat /zabbix_server.sql.gz | mariadb --default-character-set=utf8mb4 -u{{ zabbix_server_dbuser }} -p{{ zabbix_server_dbpass }} {{ zabbix_server_dbname }}'
+  no_log: false
+
 - name: "mariadb_enable_global_log_bin_trust_function_creators"
   community.mysql.mysql_variables:
     variable: log_bin_trust_function_creators
