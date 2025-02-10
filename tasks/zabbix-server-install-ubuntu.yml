@@ -83,12 +83,6 @@
     login_host: "127.0.0.1"
     login_user: "{{ zabbix_server_administrative_user }}"
     login_password: "{{ zabbix_server_administrative_pass }}"
-  notify:
-    - mariadb_disable_global_log_bin_trust_function_creators
-    - mariadb_import_database_schema
-    #- mariadb_convert_dabatabase_schema
-    - mariadb_enable_global_log_bin_trust_function_creators
-    - systemd_enable_start_zabbix-server
   no_log: True
   
 - name: "Create Zabbix database user '{{ zabbix_server_dbuser }}' for database '{{ zabbix_server_dbname }}' host '{{ ansible_hostname }}' in docker container 'mariadb' on host '{{ ansible_hostname }}'"
@@ -100,6 +94,12 @@
     login_host: "127.0.0.1"
     login_user: "{{ zabbix_server_administrative_user }}"
     login_password: "{{ zabbix_server_administrative_pass }}"
+  notify:
+    - mariadb_disable_global_log_bin_trust_function_creators
+    - mariadb_import_database_schema
+    #- mariadb_convert_dabatabase_schema
+    - mariadb_enable_global_log_bin_trust_function_creators
+    - systemd_enable_start_zabbix-server
   no_log: True
 
 - name: "Copy MariaDB / MySQL database schema to the docker container on host '{{ ansible_hostname }}'"
