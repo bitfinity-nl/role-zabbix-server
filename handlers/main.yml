@@ -18,11 +18,11 @@
   no_log: True
 
 - name: "mariadb_import_database_schema"
-  raw: docker exec -it mariadb bash -c 'zcat /zabbix_server.sql.gz | mariadb --default-character-set=utf8mb4 -u{{ zabbix_server_dbuser }} -p{{ zabbix_server_dbpass }} {{ zabbix_server_dbname }}'
+  raw: docker exec -it mariadb bash -c 'zcat /zabbix_server.sql.gz | mariadb --default-character-set=utf8mb4 -u{{ zabbix_server_administrative_user }} -p{{ zabbix_server_administrative_pass }} {{ zabbix_server_dbname }}'
   no_log: false
 
 - name: "mariadb_convert_dabatabase_schema"
-  raw: docker exec -it mariadb bash -c 'mariadb --default-character-set=utf8mb4 -u{{ zabbix_server_dbuser }} -p{{ zabbix_server_dbpass }} {{ zabbix_server_dbname }} < /utf8mb4_convert.sql'
+  raw: docker exec -it mariadb bash -c 'mariadb --default-character-set=utf8mb4 -u{{ zabbix_server_administrative_user }} -p{{ zabbix_server_administrative_pass }} {{ zabbix_server_dbname }} < /utf8mb4_convert.sql'
   no_log: false
 
 - name: "mariadb_enable_global_log_bin_trust_function_creators"
