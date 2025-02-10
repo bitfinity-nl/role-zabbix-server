@@ -13,8 +13,26 @@
 - name: "Install MariaDB server '{{ item.mariadb_docker_version }}' via docker for Zabbix '{{ item.version }}' on host '{{ ansible_hostname }}'"
   ansible.builtin.include_role:
     name: role-mariadb-docker
-    
-- name: "Install dependencies for Zabbix"
+
+- name: "Create Ansible directory structure for Zabbix on '{{ ansible_hostname }}"
+  ansible.builtin.file:
+    path: 
+    state: "{{ ansible_zabbix_dir.path }}"
+    owner: "{{ ansible_zabbix_dir.owner }}"
+    group: "{{ ansible_zabbix_dir.group }}"
+    mode: '{{ ansible_zabbix_dir.mode }}'
+  loop:
+    - { path: '/opt/ansible/zabbix/scripts/mariadb/', owner: 'root', group: 'root', mode: '0640', desc: 'Directory for MariaDB fixes' }
+  loop_control:
+    loop_var: ansible_zabbix_dir
+
+- name: "Download MySQL or MariaDB scripts for Zabbix to '/opt/ansible/zabbix/scripts/mariadb/' on '{{ ansible_hostname }}"
+  ansible.builtin.get_url:
+    url: https://www.zabbix.com/documentation/current/assets/en/manual/appendix/install/utf8mb4_convert.sql
+    dest: /opt/ansible/zabbix/scripts/mariadb/utf8mb4_convert.sql
+    mode: '0640'
+
+- name: "Install dependencies for Zabbix on '{{ ansible_hostname }} "
   ansible.builtin.apt:
     name: "{{ dependencies_apt.name }}"
     state: present
@@ -79,16 +97,24 @@
   notify:
     - mariadb_disable_global_log_bin_trust_function_creators
     - mariadb_import_database_schema
+    - mariadb_convert_dabatabase_schema
     - mariadb_enable_global_log_bin_trust_function_creators
     - systemd_enable_start_zabbix-server
   no_log: True
 
-- name: "Copy MariaDB / MySQL database schema to the docker container"
+- name: "Copy MariaDB / MySQL database schema to the docker container on host '{{ ansible_hostname }}'"
   community.docker.docker_container_copy_into:
     container: mariadb
     path: /usr/share/zabbix-sql-scripts/mysql/server.sql.gz
     container_path: /zabbix_server.sql.gz
   register: zabbix_server_script
+
+- name: "Copy MariaDB / MySQL database convert script to 'utf8mb4' and 'utf8mb4_bin' the docker container on host '{{ ansible_hostname }}'"
+  community.docker.docker_container_copy_into:
+    container: mariadb
+    path: /opt/ansible/zabbix/scripts/mariadb/utf8mb4_convert.sql
+    container_path: /utf8mb4_convert.sql
+  register: zabbix_server_convert_script
   
 - name: "Transfer templates to {{ ansible_hostname }} on host '{{ ansible_hostname }}'"
   template:
