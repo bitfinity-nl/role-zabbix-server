@@ -145,7 +145,7 @@
 
 
 - name: "Convert 'unsupported charset or collation for tables' to "
-  raw: docker exec -it mariadb bash -c 'mariadb --default-character-set=utf8mb4 -u{{ zabbix_server_administrative_user }} -p{{ zabbix_server_administrative_pass }} -D {{ zabbix_server_dbname }} "ALTER TABLE {{ var_unsupported_charset_tables }} CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;"'
+  raw: docker exec -it mariadb bash -c 'mariadb --default-character-set=utf8mb4 -u{{ zabbix_server_administrative_user }} -p{{ zabbix_server_administrative_pass }} -D {{ zabbix_server_dbname }} "ALTER TABLE {{ item }} CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;"'
   loop:
     - opconditions
     - connector_tag
@@ -278,4 +278,3 @@
     - host_proxy
     - httptest_field
   loop_control:
-    loop_var: var_unsupported_charset_tables
