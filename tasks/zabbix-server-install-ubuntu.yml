@@ -131,12 +131,13 @@
   notify:
     - systemd_restart_zabbix-server
     
-- name: "Allow traffic from Zabbix server to Zabbix Agent (Passive on port 10050/tcp) on host '{{ ansible_hostname }}'"
+- name: "Allow traffic from Zabbix server to Zabbix Agent (Active/Passive on port 10051/tcp and 10050/tcp) on host '{{ ansible_hostname }}'"
   community.general.ufw:
     rule: allow
     port: "{{ ufw.port }}"
     proto: "{{ ufw.proto }}"
   loop:
     - { port: '10050', proto: 'tcp', desc: 'Allow traffic from Zabbix server to Zabbix Agent (Passive) on port 10050/tcp' }
+    - { port: '10051', proto: 'tcp', desc: 'Allow traffic from Zabbix server to Zabbix Agent (Active) on port 10050/tcp' }
   loop_control:
     loop_var: ufw
